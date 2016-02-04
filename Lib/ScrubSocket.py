@@ -19,7 +19,7 @@ class ScrubHandler(SocketServer.BaseRequestHandler):
                 
                 for error in detectionerrors:
                     if str(error) in self.data:
-                        print "Exploit detected"
+                        print "%s attepmpted to send exploit command to service" % self.client_address[0]
                         #handle exploit
                         self.close()
                     
@@ -40,16 +40,16 @@ class ScrubServer(SocketServer.TCPServer):
         try:
             SocketServer.TCPServer.__init__(self, host, ScrubHandler)
         except:
-            print "Socket> Error cannot listen on port %d" % host[1]
+            print "Socket> Error cannot listen on port %d (In use?)" % host[1]
             sys.exit(0)
         return None
     
 def StartSocket(host, port, banner, calls, errors, debug):
     if debug:
         print "Socket> Starting service on port %d" % port
-        server = ScrubServer((host, port), banner, calls, errors, debug)
-        server.allow_reuse_address=True
-        server.server_activate()
-        server.serve_forever()
+    server = ScrubServer((host, port), banner, calls, errors, debug)
+    server.allow_reuse_address=True
+    server.server_activate()
+    server.serve_forever()
    
         
