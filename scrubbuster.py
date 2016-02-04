@@ -6,7 +6,7 @@ import datetime
 sys.path.append("Lib/")
 import scrublib
 
-from ScrubSocket import StartSocket
+from scrubsocket import StartSocket
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-v", "--verbose",  help="Display verbose messages",
